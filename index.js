@@ -36,14 +36,17 @@ app.use(
 )
 
 app.use('/static', express.static(resolve(__dirname, 'client/build/static')))
+app.get('/callback', (req, res) => {
+    if (!Object.values(req.query).length && !req.session.currentUser) {
+        res.redirect('/login')
+    } else res.sendFile(join(__dirname + '/client/build/index.html'))
+})
 
 app.get('/', authMiddleware.redirectLogin, (req, res) => {
     res.sendFile(join(__dirname + '/client/build/index.html'))
 })
+
 app.get('/login', authMiddleware.redirectHome, (req, res) => {
-    res.sendFile(join(__dirname + '/client/build/index.html'))
-})
-app.get('/:callback', (req, res) => {
     res.sendFile(join(__dirname + '/client/build/index.html'))
 })
 

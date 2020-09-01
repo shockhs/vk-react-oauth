@@ -29,7 +29,9 @@ const User: FC<IProps> = observer(({ currentUser, history }) => {
             </Link>
             <div className="username">{`${currentUser.firstName} ${currentUser.lastName}`}</div>
             <div className="id">{`@${currentUser.id}`}</div>
-            <div className="date">Дата рождения: {moment(currentUser.bDate).format('DD.MM.YYYY')}</div>
+            <div className="date">
+                Дата рождения: {currentUser.bDate ? moment(new Date(currentUser.bDate)).format('DD.MM.YYYY') : 'Скрыто'}
+            </div>
             <button className="logoutBtn" onClick={handleLogout}>
                 Logout
             </button>

@@ -1,9 +1,9 @@
 import React, { useEffect, FC, useState } from 'react'
 import DataProvider from '../../services/DataProvider'
 import Post from './Post'
-import { User } from '../../store/Auth'
 
 export type Post = {
+    id : number,
     text: string
     attachments: [{ type: string; photo?: { sizes: Array<{ url: string }> }; video?: { image: Array<{ url: string }> } }]
     likes: { count: number }
@@ -26,7 +26,7 @@ const Profile: FC<IProps> = ({ id }) => {
             })
     }, [id])
 
-    return <div>{posts ? (posts.length ? posts.map((item) => <Post post={item} />) : 'Постов нет') : 'Loading...'}</div>
+    return <div>{posts ? (posts.length ? posts.map((item) => <Post key={item.id} post={item} />) : 'Постов нет') : 'Loading...'}</div>
 }
 
 export default Profile

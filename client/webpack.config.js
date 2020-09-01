@@ -2,6 +2,7 @@ const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
@@ -66,6 +67,9 @@ const reactModuleOptions = () => {
 
 const pluginsList = () => {
     const plugins = [
+        new Dotenv({
+            path: '../.env',
+        }),
         new HTMLWebpackPlugin({
             template: './public/index.html',
             minify: {

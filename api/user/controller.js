@@ -1,12 +1,15 @@
 const axios = require('axios')
 const methodUrl = 'https://api.vk.com/method'
-const accessUrl = 'http://oauth.vk.com/access_token'
 
 exports.getCurrentUserData = async (req, res) => {
     const { userID, authToken } = req.session.currentUser
-    const accessData = `?user_ids=${userID}&fields=bdate&access_token=${authToken}&v=5.120`
+    const endpoint = new URL(`${methodUrl}/users.get`)
+    endpoint.searchParams.append('user_ids', `${userID}`)
+    endpoint.searchParams.append('fields', 'bdate')
+    endpoint.searchParams.append('access_token', `${authToken}`)
+    endpoint.searchParams.append('v', '5.120')
     try {
-        await axios.get(`${methodUrl}/users.get${accessData}`).then((response) => {
+        await axios.get(endpoint.href).then((response) => {
             res.status(200).send(response.data.response[0])
         })
     } catch (err) {
@@ -17,11 +20,21 @@ exports.getCurrentUserData = async (req, res) => {
 
 exports.getGroupPosts = async (req, res) => {
     const { userID, authToken } = req.session.currentUser
-    const accessData = `?user_ids=${userID}&access_token=${authToken}&v=5.120`
+    const endpointGroups = new URL(`${methodUrl}/groups.get`)
+    const endpointWall = new URL(`${methodUrl}/wall.get`)
+    endpointGroups.searchParams.append('user_ids', userID)
+    endpointGroups.searchParams.append('access_token', authToken)
+    endpointGroups.searchParams.append('v', '5.120')
+    endpointGroups.searchParams.append('count', 5)
     try {
-        await axios.get(`${methodUrl}/groups.get${accessData}&count=5`).then((response) => {
+        await axios.get(endpointGroups.href).then((response) => {
             const groupID = response.data.response.items[0]
-            axios.get(`${methodUrl}/wall.get${accessData}&owner_id=-${groupID}&count=10`).then((resp) => {
+            endpointWall.searchParams.append('owner_id', `-${groupID}`)
+            endpointWall.searchParams.append('user_ids', userID)
+            endpointWall.searchParams.append('access_token', authToken)
+            endpointWall.searchParams.append('v', '5.120')
+            endpointWall.searchParams.append('count', 10)
+            axios.get(endpointWall.href).then((resp) => {
                 res.status(200).send(resp.data.response.items)
             })
         })
