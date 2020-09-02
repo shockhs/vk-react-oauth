@@ -1,6 +1,6 @@
 {
-    "name": "online-school",
-    "description": "Online platform for class/grade working process",
+    "name": "vk-react-oauth",
+    "description": "VK oauth application",
     "version": "1.0.0",
     "private": true,
     "license": "MIT",

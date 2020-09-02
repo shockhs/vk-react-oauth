@@ -1,6 +1,6 @@
 module.exports.redirectLogin = function Auth(req, res, next) {
     const { currentUser } = req.session
-    console.log(currentUser)
+    
     if (currentUser) {
         next()
     } else {
