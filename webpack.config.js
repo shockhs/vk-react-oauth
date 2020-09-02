@@ -36,6 +36,7 @@ const babelOptions = (preset) => {
     const options = {
         presets: ['@babel/preset-env'],
         plugins: ['@babel/plugin-proposal-class-properties'],
+        compact: true,
     }
 
     if (preset) options.presets.push(preset)
@@ -67,9 +68,7 @@ const reactModuleOptions = () => {
 
 const pluginsList = () => {
     const plugins = [
-        new Dotenv({
-            path: '../.env',
-        }),
+        new Dotenv(),
         new HTMLWebpackPlugin({
             template: './public/index.html',
             minify: {
@@ -81,7 +80,7 @@ const pluginsList = () => {
             patterns: [
                 {
                     from: './public/favicon.ico',
-                    to: path.resolve(__dirname, 'build'),
+                    to: path.resolve(__dirname, 'client/build'),
                 },
             ],
         }),
@@ -95,16 +94,16 @@ const pluginsList = () => {
 }
 
 module.exports = {
-    mode: 'development',
-    context: path.resolve(__dirname, 'src'),
+    mode: process.env.NODE_ENV,
+    context: path.resolve(__dirname, 'client/src'),
     entry: ['@babel/polyfill', './app/index.tsx'],
     output: {
         publicPath: '/',
         filename: filename('js'),
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'client/build'),
     },
     resolve: {
-        modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+        modules: [path.resolve(__dirname, 'client/src'), 'node_modules'],
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     },
     optimization: optimizationOptions(),
@@ -126,7 +125,17 @@ module.exports = {
             {
                 test: /\.ts$/,
                 exclude: /node-modules/,
-                use: 'babel-loader',
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+                        plugins: [
+                            ['@babel/plugin-proposal-decorators', { legacy: true }],
+                            ['@babel/plugin-proposal-class-properties', { loose: true }],
+                        ],
+                        compact: true,
+                    },
+                },
             },
             {
                 test: /\.tsx$/,

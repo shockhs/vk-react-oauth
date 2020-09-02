@@ -12,9 +12,9 @@
         "lib": ["dom", "dom.iterable", "esnext"],
         "baseUrl": "src" /* Base directory to resolve non-absolute module names. */,
         "paths": {
-            "@app/*": ["app/*"],
-            "@assets/*": ["assets/*"],
-            "@styles/*": ["styles/*"]
+            "@app/*": ["src/app/*"],
+            "@assets/*": ["src/app/assets/*"],
+            "@styles/*": ["src/app/styles/*"]
         },
         "allowJs": true,
         "skipLibCheck": true,

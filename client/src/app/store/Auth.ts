@@ -1,6 +1,6 @@
 import { useLocalStore } from 'mobx-react';
 
-export interface User {
+export type User = {
     firstName?: string
     lastName?: string
     bDate?: string
