@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { User, useAuthStore } from '../../store/Auth'
-import moment from 'moment'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import AuthProvider from '../../services/AuthProvider'
 import { observer } from 'mobx-react'
