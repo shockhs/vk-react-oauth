@@ -1,7 +1,6 @@
 import React from 'react'
 import { oAuthURL } from '../../constants'
 import VKIcon from '../../assets/images/icon_vk.svg'
-import './styles.scss'
 
 export default () => {
     return (

@@ -23,12 +23,15 @@ const Post: FC<IProps> = ({ post }) => {
     }
 
     const editedText = text.replace(/\[|]|(club([0-9]+)[|])/g, '')
-    const limit = 510
+    const limit = 350
     return (
         <article className="post">
-            <div className="image">{attachments[0] ? media() : <img src={noAttach} alt="no image post" />}</div>
+            <div className="image">{attachments ? media() : <img src={noAttach} alt="no image post" />}</div>
             <div className="text">
-                <span>{editedText.substring(0, limit)}</span>
+                <span>
+                    {editedText.substring(0, limit)}
+                    {text.length > 350 ? '...' : ''}
+                </span>
             </div>
             <div className="stats">
                 <div className="counter">

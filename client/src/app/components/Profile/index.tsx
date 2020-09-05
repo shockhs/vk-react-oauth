@@ -6,7 +6,6 @@ import AuthProvider from '../../services/AuthProvider'
 import DataProvider from '../../services/DataProvider'
 import { useAuthStore } from '../../store/Auth'
 import Groups from './Groups'
-import './styles.scss'
 import User from './User'
 
 const Profile: FC<RouteComponentProps> = observer(({ location, history }) => {

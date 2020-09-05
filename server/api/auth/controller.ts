@@ -1,13 +1,17 @@
-const axios = require('axios')
+import axios from 'axios'
+import * as express from 'express'
+import { URL } from 'url'
+import { currentUser } from '../../models/user'
+
 const methodUrl = 'https://api.vk.com/method'
 const accessUrl = 'http://oauth.vk.com/access_token'
 
-exports.logout = (req, res) => {
+const logout = (req: { session: { currentUser: currentUser } }, res: express.Response) => {
     req.session.currentUser = undefined
     res.sendStatus(200)
 }
 
-exports.login = async (req, res) => {
+const login = async (req: { body: { code: any }; session: { currentUser: currentUser } }, res: express.Response) => {
     const code = req.body.code
     const currentUser = req.session.currentUser
 
@@ -18,12 +22,11 @@ exports.login = async (req, res) => {
             endpoint.searchParams.append('user_ids', userID)
             endpoint.searchParams.append('fields', 'bdate')
             endpoint.searchParams.append('access_token', authToken)
-            endpoint.searchParams.append('v', '5.120')
-            await axios.get(endpoint.href).then((response) => {
-                res.status(200).send(response.data.response[0])
+            endpoint.searchParams.append('v', process.env.API_VERSION)
+            await axios.get(endpoint.href).then((result) => {
+                res.status(200).send(result.data.response[0])
             })
         } catch (err) {
-            console.log(err)
             res.sendStatus(403)
         }
     } else {
@@ -41,9 +44,9 @@ exports.login = async (req, res) => {
                 endpointUser.searchParams.append('user_ids', userID)
                 endpointUser.searchParams.append('fields', 'bdate')
                 endpointUser.searchParams.append('access_token', authToken)
-                endpointUser.searchParams.append('v', '5.120')
-                axios.get(endpointUser.href).then((response) => {
-                    res.status(200).send(response.data.response[0])
+                endpointUser.searchParams.append('v', process.env.API_VERSION)
+                axios.get(endpointUser.href).then((result) => {
+                    res.status(200).send(result.data.response[0])
                 })
             })
         } catch (err) {
@@ -51,3 +54,5 @@ exports.login = async (req, res) => {
         }
     }
 }
+
+export { login, logout }

@@ -6,7 +6,7 @@
 ```
 npm install
 
-npm run start
+npm run start:build
 ```
 
 ### `YARN`
@@ -14,5 +14,7 @@ npm run start
 ```
 yarn install
 
-yarn start
+yarn start:build
 ```
+
+<b>PS:</b> After the first building you can simply just use the command `npm run start:server` or `yarn start:server`

@@ -8,7 +8,6 @@ class AuthProvider {
         try {
             return await axios.post(`${apiURL}/api/auth/login`, { code }, this.options)
         } catch (e) {
-            console.log(e)
             return { error: 'You are not authorized' }
         }
     }
@@ -17,7 +16,6 @@ class AuthProvider {
         try {
             return await axios.post(`${apiURL}/api/auth/logout`, this.options)
         } catch (e) {
-            console.log(e)
             return { error: 'You are not authorized' }
         }
     }
