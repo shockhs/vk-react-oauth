@@ -12,7 +12,7 @@ import { redirectHome, redirectLogin } from './api/authMiddleware'
 dotenv.config()
 
 const app = express()
-const { PORT = 5000, SESSION_TIME, SESSION_NAME, SESSION_SECRET, NODE_ENV } = process.env
+const { PORT = 5000, SESSION_TIME, SESSION_NAME, SESSION_SECRET } = process.env
 const server = http.createServer(app)
 
 app.use(
@@ -42,17 +42,17 @@ app.use('/api/user', userRoute)
 
 app.use('/static', express.static(resolve(__dirname, 'client/build/static')))
 
-app.get('/callback', (req: { query: { [key: string]: string } }, res: { sendFile: (arg0: any) => void; redirect: (arg0: string) => void }) => {
+app.get('/callback', (req: { query: { [key: string]: string } }, res: express.Response) => {
     if (req.query && req.query.code) {
         res.sendFile(join(__dirname + '/client/build/index.html'))
     } else res.redirect('/login')
 })
 
-app.get('/', redirectLogin, (req: any, res: { sendFile: (arg0: any) => void }) => {
+app.get('/', redirectLogin, (_, res: express.Response) => {
     res.sendFile(join(__dirname + '/client/build/index.html'))
 })
 
-app.get('/login', redirectHome, (req: any, res: { sendFile: (arg0: any) => void }) => {
+app.get('/login', redirectHome, (_, res: express.Response) => {
     res.sendFile(join(__dirname + '/client/build/index.html'))
 })
 

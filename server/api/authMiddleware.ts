@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-const redirectLogin = (req: express.Request, res: express.Response, next: () => void) => {
+const redirectLogin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { currentUser } = req.session
 
     if (currentUser) {
@@ -9,7 +9,7 @@ const redirectLogin = (req: express.Request, res: express.Response, next: () => 
         res.redirect('/login')
     }
 }
-const redirectHome = (req: express.Request, res: express.Response, next: () => void) => {
+const redirectHome = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { currentUser } = req.session
 
     if (currentUser) {

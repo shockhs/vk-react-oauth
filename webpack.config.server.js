@@ -1,9 +1,6 @@
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
-const isDevelopment = process.env.NODE_ENV === 'development';
-const isProduction = !isDevelopment;
-
 module.exports = {
   entry: path.resolve(__dirname, './server/index.ts'),
   mode: process.env.NODE_ENV,
