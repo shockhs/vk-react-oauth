@@ -1,14 +1,6 @@
 import { URL } from "url"
 import axios, { Method } from 'axios'
 
-interface IAgent {
-    methodUrl: string
-    accessUrl: string
-    getUrlWithQuery: (arg: getUrlParams) => string
-    getAccessRequest: (arg: RequestParams) => Promise<object>
-    getMethodRequest: (arg: RequestParams) => Promise<object>
-}
-
 type RequestParams = {
     method: Method,
     params: { method: string, query?: { [key: string]: string } }
@@ -20,6 +12,14 @@ type getUrlParams = {
     query?: { [key: string]: string }
     isAccess?: boolean
 }
+interface IAgent {
+    methodUrl: string
+    accessUrl: string
+    getUrlWithQuery: (arg: getUrlParams) => string
+    getAccessRequest: (arg: RequestParams) => Promise<object>
+    getMethodRequest: (arg: RequestParams) => Promise<object>
+}
+
 
 class Agent implements IAgent {
 
