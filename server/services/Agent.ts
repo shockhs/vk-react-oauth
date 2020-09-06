@@ -26,7 +26,7 @@ class Agent implements IAgent {
     methodUrl = 'https://api.vk.com/method'
     accessUrl = 'http://oauth.vk.com/access_token'
 
-    getUrlWithQuery = ({ method, query, isAccess }: getUrlParams): string => {
+    getUrlWithQuery = ({ method, query, isAccess }) => {
         if (isAccess) {
             const endpoint = new URL(`${this.accessUrl}`)
 
@@ -47,12 +47,12 @@ class Agent implements IAgent {
         }
     }
 
-    getAccessRequest = ({ method, params, data }: RequestParams): Promise<object> => {
+    getAccessRequest = ({ method, params, data }) => {
         if (data) return axios({ method, url: this.getUrlWithQuery({ ...params, isAccess: true }), data })
         else return axios({ method, url: this.getUrlWithQuery({ ...params, isAccess: true }) })
     }
 
-    getMethodRequest = ({ method, params, data }: RequestParams): Promise<object> => {
+    getMethodRequest = ({ method, params, data }) => {
         if (data) return axios({ method, url: this.getUrlWithQuery(params), data })
         else return axios({ method, url: this.getUrlWithQuery(params) })
     }
