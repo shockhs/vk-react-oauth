@@ -23,8 +23,8 @@ type getUrlParams = {
 
 class Agent implements IAgent {
 
-    methodUrl: string = 'https://api.vk.com/method'
-    accessUrl: string = 'http://oauth.vk.com/access_token'
+    methodUrl = 'https://api.vk.com/method'
+    accessUrl = 'http://oauth.vk.com/access_token'
 
     getUrlWithQuery = ({ method, query, isAccess }: getUrlParams): string => {
         if (isAccess) {
