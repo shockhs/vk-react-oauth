@@ -12,6 +12,7 @@ type getUrlParams = {
     query?: { [key: string]: string }
     isAccess?: boolean
 }
+
 interface IAgent {
     methodUrl: string
     accessUrl: string
